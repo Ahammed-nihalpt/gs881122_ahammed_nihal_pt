@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import StoresPage from './pages/StoresPage';
 import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
 
 const App = () => {
   return (
     <Router>
       <Navbar />
+      <Sidebar />
       <div className="pt-16">
         <Routes>
           <Route path="/stores" element={<StoresPage />} />
