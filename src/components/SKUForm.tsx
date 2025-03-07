@@ -1,13 +1,11 @@
-import React from 'react';
-
-interface StoreFormProps {
+interface SKUFormProps {
   onSubmit: () => void;
-  value: { name: string; city: string; state: string };
-  onChange: (value: { name: string; city: string; state: string }) => void;
+  value: { name: string; price: number; cost: number };
+  onChange: (value: { name: string; price: number; cost: number }) => void;
   onClose: () => void;
 }
 
-const StoreForm: React.FC<StoreFormProps> = ({ onSubmit, value, onChange, onClose }) => {
+const SKUForm: React.FC<SKUFormProps> = ({ onSubmit, value, onChange, onClose }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value: inputValue } = e.target;
     onChange({ ...value, [name]: inputValue });
@@ -24,7 +22,7 @@ const StoreForm: React.FC<StoreFormProps> = ({ onSubmit, value, onChange, onClos
     >
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-          Store Name
+          SKU Name
         </label>
         <input
           type="text"
@@ -32,7 +30,7 @@ const StoreForm: React.FC<StoreFormProps> = ({ onSubmit, value, onChange, onClos
           id="name"
           value={value.name}
           onChange={handleInputChange}
-          placeholder="Enter store name"
+          placeholder="Enter SKU name"
           className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
           required
         />
@@ -40,15 +38,15 @@ const StoreForm: React.FC<StoreFormProps> = ({ onSubmit, value, onChange, onClos
 
       <div>
         <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-          City
+          Price
         </label>
         <input
-          type="text"
-          name="city"
-          id="city"
-          value={value.city}
+          type="number"
+          name="price"
+          id="price"
+          value={value.price}
           onChange={handleInputChange}
-          placeholder="Enter city"
+          placeholder="Enter Price"
           className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
           required
         />
@@ -56,15 +54,15 @@ const StoreForm: React.FC<StoreFormProps> = ({ onSubmit, value, onChange, onClos
 
       <div>
         <label htmlFor="state" className="block text-sm font-medium text-gray-700">
-          State
+          Cost
         </label>
         <input
-          type="text"
-          name="state"
-          id="state"
-          value={value.state}
+          type="number"
+          name="cost"
+          id="cost"
+          value={value.cost}
           onChange={handleInputChange}
-          placeholder="Enter state"
+          placeholder="Enter cost"
           className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
           required
         />
@@ -89,4 +87,4 @@ const StoreForm: React.FC<StoreFormProps> = ({ onSubmit, value, onChange, onClos
   );
 };
 
-export default StoreForm;
+export default SKUForm;

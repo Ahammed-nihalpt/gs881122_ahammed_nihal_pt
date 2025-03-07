@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import StoresPage from './pages/StoresPage';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+import SKUsPage from './pages/SKUsPage';
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       <div className="pl-64 pt-16">
         <Routes>
           <Route path="/stores" element={<StoresPage />} />
+          <Route path="/skus" element={<SKUsPage />} />
         </Routes>
       </div>
     </Router>
