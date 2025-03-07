@@ -7,9 +7,15 @@ interface DataTableProps<T> {
   columns: Column[];
   rows: T[];
   onRemove?: (id: number) => void;
+  onEdit?: (row: T) => void;
 }
 
-const DataTable = <T extends { id: number }>({ columns, rows, onRemove }: DataTableProps<T>) => {
+const DataTable = <T extends { id: number }>({
+  columns,
+  rows,
+  onRemove,
+  onEdit,
+}: DataTableProps<T>) => {
   return (
     <table className="w-full mt-4 border-collapse border border-gray-300">
       <thead>
@@ -19,7 +25,7 @@ const DataTable = <T extends { id: number }>({ columns, rows, onRemove }: DataTa
               {column.header}
             </th>
           ))}
-          {onRemove && <th className="p-2 border border-gray-300">Actions</th>}
+          {(onRemove || onEdit) && <th className="p-2 border border-gray-300">Actions</th>}
         </tr>
       </thead>
       <tbody>
@@ -30,14 +36,24 @@ const DataTable = <T extends { id: number }>({ columns, rows, onRemove }: DataTa
                 {String(row[column.key as keyof T])}
               </td>
             ))}
-            {onRemove && (
-              <td className="p-2 border border-gray-300 text-center">
-                <button
-                  onClick={() => onRemove(row.id)}
-                  className="text-red-500 hover:text-red-700"
-                >
-                  Remove
-                </button>
+            {(onRemove || onEdit) && (
+              <td className="p-2 border border-gray-300 text-center space-x-2">
+                {onEdit && (
+                  <button
+                    onClick={() => onEdit(row)} // Call onEdit with the row data
+                    className="text-blue-500 hover:text-blue-700"
+                  >
+                    Edit
+                  </button>
+                )}
+                {onRemove && (
+                  <button
+                    onClick={() => onRemove(row.id)}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    Remove
+                  </button>
+                )}
               </td>
             )}
           </tr>

@@ -2,12 +2,13 @@ import React from 'react';
 
 interface StoreFormProps {
   onSubmit: () => void;
-  value: { name: string; city: string; state: string };
+  value: { id?: number; name: string; city: string; state: string };
   onChange: (value: { name: string; city: string; state: string }) => void;
   onClose: () => void;
 }
 
 const StoreForm: React.FC<StoreFormProps> = ({ onSubmit, value, onChange, onClose }) => {
+  console.log('🚀 ~ value:', value);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value: inputValue } = e.target;
     onChange({ ...value, [name]: inputValue });
@@ -82,7 +83,7 @@ const StoreForm: React.FC<StoreFormProps> = ({ onSubmit, value, onChange, onClos
           type="submit"
           className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
         >
-          Add Store
+          {value.id ? 'Update Store' : 'Add Store'}
         </button>
       </div>
     </form>
