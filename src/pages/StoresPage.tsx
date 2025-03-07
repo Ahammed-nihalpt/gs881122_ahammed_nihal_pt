@@ -1,34 +1,38 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../store';
+import StoreForm from '../components/StoreForm';
 import { addStore, removeStore } from '../store/slices/storesSlice';
+import { RootState } from '../store';
 
 const StoresPage = () => {
-  const stores = useSelector((state: RootState) => state.stores.stores);
   const dispatch = useDispatch();
-  const [storeName, setStoreName] = useState('');
+  const stores = useSelector((state: RootState) => state.stores);
+  const [newStore, setNewStore] = useState('');
 
   const handleAddStore = () => {
-    if (storeName.trim()) {
-      dispatch(addStore({ id: Date.now(), name: storeName }));
-      setStoreName('');
-    }
+    dispatch(addStore({ id: Date.now(), name: newStore }));
+    setNewStore('');
   };
 
   return (
-    <div>
-      <h1>Stores</h1>
-      <input
-        type="text"
-        value={storeName}
-        onChange={(e) => setStoreName(e.target.value)}
-        placeholder="Enter store name"
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Stores</h1>
+      <StoreForm
+        onSubmit={handleAddStore}
+        value={newStore}
+        onChange={setNewStore}
+        stores={stores}
       />
-      <button onClick={handleAddStore}>Add Store</button>
-      <ul>
+      <ul className="mt-4 space-y-2">
         {stores.map((store) => (
-          <li key={store.id}>
-            {store.name} <button onClick={() => dispatch(removeStore(store.id))}>Delete</button>
+          <li key={store.id} className="flex items-center justify-between p-2 bg-gray-100 rounded">
+            <span>{store.name}</span>
+            <button
+              onClick={() => dispatch(removeStore(store.id))}
+              className="text-red-500 hover:text-red-700"
+            >
+              Remove
+            </button>
           </li>
         ))}
       </ul>

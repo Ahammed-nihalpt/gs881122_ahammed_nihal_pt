@@ -8,7 +8,7 @@ const App = () => {
     <Router>
       <Navbar />
       <Sidebar />
-      <div className="pt-16">
+      <div className="pl-64 pt-16">
         <Routes>
           <Route path="/stores" element={<StoresPage />} />
         </Routes>
