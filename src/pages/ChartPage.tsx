@@ -30,8 +30,8 @@ const ChartPage: React.FC = () => {
   }, [stores, skus, dispatch, selectedStore, planning]);
 
   return (
-    <div className="p-4 md:p-6 lg:p-8 bg-white rounded-lg shadow-lg max-w-4xl mx-auto">
-      <h1 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4">Store Performance</h1>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Store Performance</h1>
 
       <div className="flex flex-col md:flex-row items-center gap-4 mb-6">
         <label htmlFor="store-select" className="text-sm md:text-base font-medium text-gray-600">
@@ -50,7 +50,7 @@ const ChartPage: React.FC = () => {
         </select>
       </div>
 
-      <div className="overflow-x-auto">
+      <div className="w-full mt-4">
         <GMChart data={chartData} />
       </div>
     </div>
