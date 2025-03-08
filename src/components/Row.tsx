@@ -2,6 +2,8 @@ import { CSS } from '@dnd-kit/utilities';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { useSortable } from '@dnd-kit/sortable';
 import { IRowProps, RowData } from '../types/IDataTable';
+import EditIcon from '@mui/icons-material/Edit';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 const Row = <T extends RowData>({ row, columns, onRemove, onEdit, enableDrag }: IRowProps<T>) => {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
@@ -37,12 +39,12 @@ const Row = <T extends RowData>({ row, columns, onRemove, onEdit, enableDrag }: 
         <td className="p-2 border border-gray-300 text-center space-x-2">
           {onEdit && (
             <button onClick={() => onEdit(row)} className="text-blue-500 hover:text-blue-700">
-              Edit
+              <EditIcon />
             </button>
           )}
           {onRemove && (
             <button onClick={() => onRemove(row.id)} className="text-red-500 hover:text-red-700">
-              Remove
+              <RemoveCircleIcon />
             </button>
           )}
         </td>

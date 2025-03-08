@@ -1,11 +1,12 @@
 interface SKUFormProps {
   onSubmit: () => void;
-  value: { name: string; price: number; cost: number };
+  value: { id?: number; name: string; price: number; cost: number };
   onChange: (value: { name: string; price: number; cost: number }) => void;
   onClose: () => void;
 }
 
 const SKUForm: React.FC<SKUFormProps> = ({ onSubmit, value, onChange, onClose }) => {
+  console.log('🚀 ~ value:', value);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value: inputValue } = e.target;
     onChange({ ...value, [name]: inputValue });
@@ -80,7 +81,7 @@ const SKUForm: React.FC<SKUFormProps> = ({ onSubmit, value, onChange, onClose })
           type="submit"
           className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
         >
-          Add Store
+          {value.id ? 'Update Store' : 'Add Store'}
         </button>
       </div>
     </form>

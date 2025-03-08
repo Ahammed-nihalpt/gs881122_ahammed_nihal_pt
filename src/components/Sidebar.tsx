@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-
+import StoreIcon from '@mui/icons-material/Store';
 const Sidebar = () => {
   return (
     <aside className="fixed top-16 left-0 h-screen w-64 bg-white text-[#2f8a9c] shadow-lg">
@@ -17,6 +17,7 @@ const Sidebar = () => {
                 }
               >
                 Stores
+                <StoreIcon />
               </NavLink>
             </li>
             <li>
