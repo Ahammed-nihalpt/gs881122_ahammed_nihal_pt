@@ -4,8 +4,8 @@ import StoreForm from '../components/StoreForm';
 import { addStore, removeStore, updateStore, reorderStores } from '../store/slices/storesSlice';
 import { RootState } from '../store';
 import { IStore } from '../types/IStores';
-import DataTable from '../components/DataTable';
 import Modal from '../components/Modal';
+import DataTable from '../components/DataTable/DataTable';
 
 const StoresPage = () => {
   const dispatch = useDispatch();

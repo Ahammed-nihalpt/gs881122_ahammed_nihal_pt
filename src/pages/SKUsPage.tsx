@@ -4,8 +4,8 @@ import { addSKU, removeSKU, updateSKU } from '../store/slices/skusSlice';
 import SKUForm from '../components/SKUForm';
 import { ISKU } from '../types/ISKU';
 import { RootState } from '../store';
-import DataTable from '../components/DataTable';
 import Modal from '../components/Modal';
+import DataTable from '../components/DataTable/DataTable';
 
 const SKUsPage = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,6 @@ const SKUsPage = () => {
     dispatch(removeSKU(id));
   };
   const handleEditSKU = (store: ISKU) => {
-    console.log('🚀 ~ handleEditSKU ~ store:', store);
     setEditingSKU(store);
     setIsModalOpen(true);
   };
@@ -74,7 +73,6 @@ const SKUsPage = () => {
           onSubmit={editingSKU ? handleUpdateSKU : handleAddSKU}
           value={editingSKU ? editingSKU : newSKU}
           onChange={(value) => {
-            console.log('🚀 ~ SKUsPage ~ editingSKU:', editingSKU);
             if (editingSKU) {
               setEditingSKU({ ...editingSKU, ...value }); // Update editing store
             } else {

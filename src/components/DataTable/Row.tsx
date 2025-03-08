@@ -1,7 +1,7 @@
 import { CSS } from '@dnd-kit/utilities';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
 import { useSortable } from '@dnd-kit/sortable';
-import { IRowProps, RowData } from '../types/IDataTable';
+import { IRowProps, RowData } from '../../types/IDataTable';
 import EditIcon from '@mui/icons-material/Edit';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 

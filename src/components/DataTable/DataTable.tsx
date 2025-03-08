@@ -1,7 +1,7 @@
 import { DndContext, closestCenter, DragEndEvent } from '@dnd-kit/core';
 import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import Row from './Row';
-import { IDataTableProps } from '../types/IDataTable';
+import { IDataTableProps } from '../../types/IDataTable';
 
 const DataTable = <T extends { id: number }>({
   columns,
