@@ -6,13 +6,12 @@ import SKUsPage from './pages/SKUsPage';
 import PlanningPage from './pages/PlanningPage';
 import ChartPage from './pages/ChartPage';
 import Sidebar from './components/Sidebar/Sidebar';
+import Home from './pages/Home';
 
 const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  console.log('🚀 ~ App ~ sidebarOpen:', sidebarOpen);
 
   const toggleSidebar = () => {
-    console.log('🚀 ~ toggleSidebar ~ toggleSidebar:');
     setSidebarOpen((prev) => !prev);
   };
 
@@ -22,6 +21,7 @@ const App = () => {
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
       <div className="lg:pl-64 pt-16 transition-all">
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/stores" element={<StoresPage />} />
           <Route path="/skus" element={<SKUsPage />} />
           <Route path="/planning" element={<PlanningPage />} />

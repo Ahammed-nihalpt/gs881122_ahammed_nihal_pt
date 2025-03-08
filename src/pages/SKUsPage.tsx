@@ -1,17 +1,17 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addSKU, removeSKU, updateSKU } from '../store/slices/skusSlice';
 import SKUForm from '../components/SKUForm';
 import { ISKU } from '../types/ISKU';
-import { RootState } from '../store';
 import Modal from '../components/Modal';
 import DataTable from '../components/DataTable/DataTable';
 import { addSKUInPlan, deleteSKUInPlan, editSKUInPlan } from '../store/slices/planningSlice';
+import useSKU from '../hooks/useSKU';
 
 const SKUsPage = () => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const skus = useSelector((state: RootState) => state.skus);
+  const skus = useSKU();
   const [newSKU, setNewSKU] = useState({ name: '', price: 0, cost: 0 });
   const [editingSKU, setEditingSKU] = useState<ISKU | null>(null);
 
