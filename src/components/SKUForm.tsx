@@ -6,7 +6,6 @@ interface SKUFormProps {
 }
 
 const SKUForm: React.FC<SKUFormProps> = ({ onSubmit, value, onChange, onClose }) => {
-  console.log('🚀 ~ value:', value);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value: inputValue } = e.target;
     onChange({ ...value, [name]: inputValue });
