@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import StoreForm from '../components/StoreForm';
-import { addStore, removeStore, updateStore } from '../store/slices/storesSlice';
+import { addStore, removeStore, updateStore, reorderStores } from '../store/slices/storesSlice';
 import { RootState } from '../store';
 import { IStore } from '../types/IStores';
 import DataTable from '../components/DataTable';
@@ -33,6 +33,10 @@ const StoresPage = () => {
 
   const handleRemoveStore = (id: number) => {
     dispatch(removeStore(id));
+  };
+
+  const handleReorder = (newRows: typeof rows) => {
+    dispatch(reorderStores(newRows));
   };
 
   const columns = [
@@ -67,6 +71,7 @@ const StoresPage = () => {
         rows={rows}
         onRemove={handleRemoveStore}
         onEdit={handleEditStore}
+        onReorder={handleReorder}
       />
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
