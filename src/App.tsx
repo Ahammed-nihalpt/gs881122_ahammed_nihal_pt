@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import SKUsPage from './pages/SKUsPage';
 import PlanningPage from './pages/PlanningPage';
+import ChartPage from './pages/ChartPage';
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="/stores" element={<StoresPage />} />
           <Route path="/skus" element={<SKUsPage />} />
           <Route path="/planning" element={<PlanningPage />} />
+          <Route path="/chart" element={<ChartPage />} />
         </Routes>
       </div>
     </Router>

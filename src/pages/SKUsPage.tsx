@@ -6,6 +6,7 @@ import { ISKU } from '../types/ISKU';
 import { RootState } from '../store';
 import Modal from '../components/Modal';
 import DataTable from '../components/DataTable/DataTable';
+import { addSKUInPlan, deleteSKUInPlan, editSKUInPlan } from '../store/slices/planningSlice';
 
 const SKUsPage = () => {
   const dispatch = useDispatch();
@@ -15,12 +16,16 @@ const SKUsPage = () => {
   const [editingSKU, setEditingSKU] = useState<ISKU | null>(null);
 
   const handleAddSKU = () => {
-    dispatch(addSKU({ id: Date.now(), ...newSKU }));
+    const newData = { id: Date.now(), ...newSKU };
+    dispatch(addSKU(newData));
+    dispatch(addSKUInPlan(newData));
+
     setNewSKU({ name: '', price: 0, cost: 0 });
   };
 
   const handleRemoveSKU = (id: number) => {
     dispatch(removeSKU(id));
+    dispatch(deleteSKUInPlan(id));
   };
   const handleEditSKU = (store: ISKU) => {
     setEditingSKU(store);
@@ -29,6 +34,7 @@ const SKUsPage = () => {
   const handleUpdateSKU = () => {
     if (editingSKU) {
       dispatch(updateSKU(editingSKU));
+      dispatch(editSKUInPlan(editingSKU));
       setEditingSKU(null);
       setIsModalOpen(false);
     }
@@ -74,9 +80,9 @@ const SKUsPage = () => {
           value={editingSKU ? editingSKU : newSKU}
           onChange={(value) => {
             if (editingSKU) {
-              setEditingSKU({ ...editingSKU, ...value }); // Update editing store
+              setEditingSKU({ ...editingSKU, ...value });
             } else {
-              setNewSKU(value); // Update new store
+              setNewSKU(value);
             }
           }}
           onClose={() => setIsModalOpen(false)}

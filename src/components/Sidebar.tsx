@@ -44,6 +44,18 @@ const Sidebar = () => {
                 Planning
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/chart"
+                className={({ isActive }) =>
+                  `block p-2 hover:bg-[#e5e5e5] rounded transition-colors ${
+                    isActive ? 'bg-[#e5e5e5]' : ''
+                  }`
+                }
+              >
+                Chart
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </div>

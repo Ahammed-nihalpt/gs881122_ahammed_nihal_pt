@@ -14,6 +14,7 @@ import usePlanning from '../../hooks/usePlanning';
 import { useDispatch } from 'react-redux';
 import { initializePlanningData, updateSalesUnits } from '../../store/slices/planningSlice';
 import { IPlanningEntry, IPlanningEntryDisplay } from '../../types/IPlanning';
+import transformPlanningEntriesForDisplay from '../../utils/transformPlanningEntriesForDisplay';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 const weeks = Array.from({ length: 12 }, (_, i) => `Week ${i + 1}`);
@@ -22,28 +23,12 @@ const GridExample = () => {
   const stores = useStores();
   const skus = useSKU();
   const planning = usePlanning();
-  const transformPlanningEntriesForDisplay = (entries: IPlanningEntry[]) => {
-    return entries.map((entry) => ({
-      ...entry,
-      weeklyData: Object.fromEntries(
-        entry.weeklyData.map((data) => [
-          data.week, // Key: "week 1", "week 2", etc.
-          {
-            salesUnits: data.salesUnits,
-            salesDollars: data.salesDollars,
-            gmDollars: data.gmDollars,
-            gmPercentage: data.gmPercentage,
-          },
-        ])
-      ),
-    }));
-  };
 
   useEffect(() => {
-    if (stores.length > 0 && skus.length > 0) {
+    if (stores.length > 0 && skus.length > 0 && planning.length <= 0) {
       dispatch(initializePlanningData({ stores, skus }));
     }
-  }, [stores, skus, dispatch]);
+  }, [stores, skus, dispatch, planning.length]);
 
   const colDefs: ColDef<IPlanningEntryDisplay>[] = [
     { headerName: 'Store', field: 'store', pinned: 'left' },

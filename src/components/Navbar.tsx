@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import GSynergyLogo from '../../public/assets/gsynergy-logo.svg'; // Import SVG as an image source
+import GSynergyLogo from '../../public/assets/gsynergy-logo.svg';
 
 const Navbar = () => {
   return (

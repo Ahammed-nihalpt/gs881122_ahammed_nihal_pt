@@ -8,7 +8,9 @@ export interface IPlanningWeekData {
 
 export interface IPlanningEntry {
   id: string;
+  storeId: number;
   store: string;
+  skuId: number;
   sku: string;
   cost: number;
   price: number;

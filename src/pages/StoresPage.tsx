@@ -1,21 +1,26 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import StoreForm from '../components/StoreForm';
 import { addStore, removeStore, updateStore, reorderStores } from '../store/slices/storesSlice';
-import { RootState } from '../store';
 import { IStore } from '../types/IStores';
 import Modal from '../components/Modal';
 import DataTable from '../components/DataTable/DataTable';
+import { addStoreInPlan, deleteStoreInPlan, editStoreInPlan } from '../store/slices/planningSlice';
+import useStores from '../hooks/useStores';
+import useSKU from '../hooks/useSKU';
 
 const StoresPage = () => {
   const dispatch = useDispatch();
-  const stores = useSelector((state: RootState) => state.stores);
+  const stores = useStores();
+  const skus = useSKU();
   const [newStore, setNewStore] = useState({ name: '', city: '', state: '' });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingStore, setEditingStore] = useState<IStore | null>(null);
 
   const handleAddStore = () => {
-    dispatch(addStore({ id: Date.now(), ...newStore }));
+    const store = { id: Date.now(), ...newStore };
+    dispatch(addStore(store));
+    dispatch(addStoreInPlan({ store, skus }));
     setNewStore({ name: '', city: '', state: '' });
   };
   const handleEditStore = (store: IStore) => {
@@ -26,6 +31,7 @@ const StoresPage = () => {
   const handleUpdateStore = () => {
     if (editingStore) {
       dispatch(updateStore(editingStore));
+      dispatch(editStoreInPlan({ storeId: editingStore.id, newName: editingStore.name }));
       setEditingStore(null);
       setIsModalOpen(false);
     }
@@ -33,6 +39,7 @@ const StoresPage = () => {
 
   const handleRemoveStore = (id: number) => {
     dispatch(removeStore(id));
+    dispatch(deleteStoreInPlan(id));
   };
 
   const handleReorder = (newRows: typeof rows) => {
@@ -80,9 +87,9 @@ const StoresPage = () => {
           value={editingStore ? editingStore : newStore}
           onChange={(value) => {
             if (editingStore) {
-              setEditingStore({ ...editingStore, ...value }); // Update editing store
+              setEditingStore({ ...editingStore, ...value });
             } else {
-              setNewStore(value); // Update new store
+              setNewStore(value);
             }
           }}
           onClose={() => setIsModalOpen(false)}
