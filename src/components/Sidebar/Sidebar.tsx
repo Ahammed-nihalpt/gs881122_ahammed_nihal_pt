@@ -25,7 +25,7 @@ const Sidebar = ({
       {isOpen && (
         <div className="fixed inset-0 bg-black/70 z-40" onClick={() => setIsOpen(false)}>
           <div
-            className="fixed top-16 left-0 h-full w-64 bg-white text-[#2f8a9c] shadow-lg transition-transform transform translate-x-0"
+            className="fixed top-23 left-0 h-full w-64 bg-white text-[#2f8a9c] shadow-lg transition-transform transform translate-x-0"
             onClick={(e) => e.stopPropagation()}
           >
             <button className="absolute top-4 right-4" onClick={() => setIsOpen(false)}>
