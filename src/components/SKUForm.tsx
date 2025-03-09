@@ -38,7 +38,6 @@ const SKUForm: React.FC<SKUFormProps> = ({ onSubmit, value, onChange, onClose })
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: { name?: string; price?: string; cost?: string } = {};
-    console.log('🚀 ~ handleSubmit ~ value.name.:', value.name);
 
     if (!value.name.trim()) newErrors.name = 'SKU name is required';
     if (value.price !== undefined && value.price < 0) newErrors.price = 'Must be a positive number';

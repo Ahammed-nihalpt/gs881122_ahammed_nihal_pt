@@ -132,6 +132,19 @@ const planningSlice = createSlice({
           entry.sku = action.payload.name;
           entry.cost = action.payload.cost;
           entry.price = action.payload.price;
+
+          // Recalculate sales values if salesUnits exist
+          entry.weeklyData.forEach((weekData) => {
+            if (weekData.salesUnits > 0) {
+              weekData.salesDollars = weekData.salesUnits * entry.price;
+              weekData.gmDollars = weekData.salesDollars - weekData.salesUnits * entry.cost;
+              const gmPercentage =
+                weekData.salesDollars !== 0
+                  ? (weekData.gmDollars / weekData.salesDollars) * 100
+                  : 0;
+              weekData.gmPercentage = isNaN(gmPercentage) ? 0 : gmPercentage;
+            }
+          });
         }
       });
     },
