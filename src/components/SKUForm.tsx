@@ -13,8 +13,13 @@ const SKUForm: React.FC<SKUFormProps> = ({ onSubmit, value, onChange, onClose })
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value: inputValue } = e.target;
 
-    // Keep empty string if user deletes the value, otherwise parse number
-    const newValue = inputValue === '' ? '' : Number(inputValue);
+    let newValue: string | number = inputValue;
+
+    if (name === 'name') {
+      newValue = inputValue; // Ensure name is always a string
+    } else {
+      newValue = inputValue === '' ? '' : Number(inputValue); // Convert numbers correctly
+    }
 
     onChange({ ...value, [name]: newValue });
 
@@ -33,6 +38,7 @@ const SKUForm: React.FC<SKUFormProps> = ({ onSubmit, value, onChange, onClose })
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: { name?: string; price?: string; cost?: string } = {};
+    console.log('🚀 ~ handleSubmit ~ value.name.:', value.name);
 
     if (!value.name.trim()) newErrors.name = 'SKU name is required';
     if (value.price !== undefined && value.price < 0) newErrors.price = 'Must be a positive number';
@@ -110,7 +116,7 @@ const SKUForm: React.FC<SKUFormProps> = ({ onSubmit, value, onChange, onClose })
         </button>
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-300"
+          className="px-4 py-2 bg-[#6ca8b4] text-white rounded-md hover:bg-[#2f8a9c] disabled:bg-gray-300"
           disabled={
             !value.name.trim() || !value.price || value.price <= 0 || !value.cost || value.cost <= 0
           }

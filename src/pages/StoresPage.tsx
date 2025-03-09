@@ -69,7 +69,7 @@ const StoresPage = () => {
           setEditingStore(null);
           setIsModalOpen(true);
         }}
-        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+        className="px-4 py-2 bg-[#6ca8b4] text-white rounded-md hover:bg-[#2f8a9c]"
       >
         Add Store
       </button>

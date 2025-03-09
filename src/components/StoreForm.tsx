@@ -92,7 +92,7 @@ const StoreForm: React.FC<StoreFormProps> = ({ onSubmit, value, onChange, onClos
         </button>
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-300"
+          className="px-4 py-2 bg-[#6ca8b4] text-white rounded-md hover:bg-[#2f8a9c] disabled:bg-gray-300"
           disabled={!value.name.trim()}
         >
           {value.id ? 'Update Store' : 'Add Store'}

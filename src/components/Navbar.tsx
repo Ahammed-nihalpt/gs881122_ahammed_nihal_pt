@@ -16,7 +16,7 @@ const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
             </Link>
           </div>
 
-          <div className="absolute left-1/2 transform -translate-x-1/2 text-2xl font-semibold text-gray-700">
+          <div className="absolute left-1/2 transform -translate-x-1/2 text-2xl font-semibold text-[#6ca8b4]">
             Data Viewer App
           </div>
         </div>
