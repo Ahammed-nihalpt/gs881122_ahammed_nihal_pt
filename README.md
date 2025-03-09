@@ -10,6 +10,8 @@ This is a Progressive Web App (PWA) developed as part of the **GSynergy Typescri
 
 🔗 **GitHub Repository**: [GitHub Repo](https://github.com/Ahammed-nihalpt/gs881122_ahammed_nihal_pt)
 
+🔗 **Demo Video**: [youtube](https://youtu.be/6-qzVt9rKc4), [Drive](https://drive.google.com/file/d/1AdoqyBoYQfVIeRzBx9kjfJZuBj96elPc/view?usp=drive_link)
+
 ## Tech Stack
 
 - **Frontend**: React (v19.0.0), Redux Toolkit (v2.6.0), React Router DOM (v7.3.0)
@@ -19,6 +21,7 @@ This is a Progressive Web App (PWA) developed as part of the **GSynergy Typescri
 - **Data Grid**: AG-Grid
 - **Charting**: Recharts
 - **Build Tool**: Vite
+- **Code Quality**: ESLint, Prettier
 
 ## System Requirements
 
