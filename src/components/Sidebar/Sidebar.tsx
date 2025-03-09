@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import SidebarContent from './SidebarContent';
@@ -9,6 +10,18 @@ const Sidebar = ({
   isOpen: boolean;
   setIsOpen: (state: boolean) => void;
 }) => {
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, [setIsOpen]);
+
   return (
     <>
       <button
