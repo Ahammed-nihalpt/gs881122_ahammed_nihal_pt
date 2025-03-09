@@ -36,16 +36,27 @@ const DataTable = <T extends { id: number }>({
         </tr>
       </thead>
       <tbody>
-        {rows.map((row) => (
-          <Row
-            key={row.id}
-            row={row}
-            columns={columns}
-            onEdit={onEdit}
-            onRemove={onRemove}
-            enableDrag={!!onReorder}
-          />
-        ))}
+        {rows.length > 0 ? (
+          rows.map((row) => (
+            <Row
+              key={row.id}
+              row={row}
+              columns={columns}
+              onEdit={onEdit}
+              onRemove={onRemove}
+              enableDrag={!!onReorder}
+            />
+          ))
+        ) : (
+          <tr>
+            <td
+              colSpan={columns.length + (onReorder ? 2 : 1)}
+              className="text-gray-500 text-lg font-semibold text-center p-4"
+            >
+              No data available
+            </td>
+          </tr>
+        )}
       </tbody>
     </table>
   );

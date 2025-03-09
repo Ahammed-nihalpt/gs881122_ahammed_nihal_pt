@@ -50,6 +50,8 @@ const planningSlice = createSlice({
       }
     },
 
+    // This function is called when a new store is added.
+    // It adds the new store along with its SKUs to the planning state.
     addStoreInPlan: (state, action: PayloadAction<{ store: IStore; skus: ISKU[] }>) => {
       const { store, skus } = action.payload;
 
@@ -73,6 +75,8 @@ const planningSlice = createSlice({
       state.push(...newEntries);
     },
 
+    // This function is called when a new SKU is added.
+    // It adds the new SKU to all existing stores in the planning state.
     addSKUInPlan: (state, action: PayloadAction<ISKU>) => {
       const newSKU = action.payload;
 
@@ -98,14 +102,20 @@ const planningSlice = createSlice({
       state.push(...newEntries);
     },
 
+    // This function is called when a store is deleted.
+    // It removes all planning entries associated with the given store.
     deleteStoreInPlan: (state, action: PayloadAction<number>) => {
       return state.filter((entry) => entry.storeId !== action.payload);
     },
 
+    // This function is called when a SKU is deleted.
+    // It removes all planning entries associated with the given SKU.
     deleteSKUInPlan: (state, action: PayloadAction<number>) => {
       return state.filter((entry) => entry.skuId !== action.payload);
     },
 
+    // This function is called when a store name is edited.
+    // It updates the store name in all relevant planning entries.
     editStoreInPlan: (state, action: PayloadAction<{ storeId: number; newName: string }>) => {
       state.forEach((entry) => {
         if (entry.storeId === action.payload.storeId) {
@@ -113,6 +123,9 @@ const planningSlice = createSlice({
         }
       });
     },
+
+    // This function is called when a SKU is edited.
+    // It updates the SKU name, cost, and price in all relevant planning entries.
     editSKUInPlan: (state, action: PayloadAction<ISKU>) => {
       state.forEach((entry) => {
         if (entry.skuId === action.payload.id) {

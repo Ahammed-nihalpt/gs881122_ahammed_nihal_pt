@@ -25,11 +25,13 @@ const GridExample = () => {
   const planning = usePlanning();
 
   useEffect(() => {
+    // Initializes planning data if it is empty and both stores and SKUs are available.
     if (stores.length > 0 && skus.length > 0 && planning.length <= 0) {
       dispatch(initializePlanningData({ stores, skus }));
     }
   }, [stores, skus, dispatch, planning.length]);
 
+  // Defines column configurations for the AG-Grid, including store, SKU, and weekly sales data.
   const colDefs: ColDef<IPlanningEntryDisplay>[] = [
     { headerName: 'Store', field: 'store', pinned: 'left' },
     { headerName: 'SKU', field: 'sku', pinned: 'left' },

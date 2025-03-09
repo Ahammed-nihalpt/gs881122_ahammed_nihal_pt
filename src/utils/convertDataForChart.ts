@@ -1,5 +1,7 @@
 import { IPlanningEntry } from '../types/IPlanning';
 
+// Converts planning entries into a summarized format for chart visualization.
+// Aggregates GM Dollars per week and retains GM Percentage for each week.
 const convertDataForChart = (
   entries: IPlanningEntry[]
 ): { week: string; gmDollars: number; gmPercent: number }[] => {

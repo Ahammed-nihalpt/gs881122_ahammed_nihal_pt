@@ -16,13 +16,16 @@ const ChartPage: React.FC = () => {
   const [selectedStore, setSelectedStore] = useState<number | null>(null);
   const [chartData, setChartData] = useState<IChart[]>([]);
   useEffect(() => {
+    // Initializes planning data and updates chart data based on store selection.
     if (stores.length > 0 && skus.length > 0 && planning.length <= 0) {
+      // If planning data is empty, it initializes it with the selected or first available store and SKUs.
       const store = selectedStore ? stores.find((value) => value.id === selectedStore) : stores[0];
       if (store) {
         dispatch(initializePlanningData({ stores: [store], skus }));
         setChartData(convertDataForChart(planning));
       }
     } else if (planning.length > 0 && stores.length > 0 && skus.length > 0) {
+      // If planning data exists, it filters it based on the selected store and updates the chart data.
       const storeId = selectedStore ? selectedStore : stores[0].id;
       const filteredPlanning = planning.filter((value) => value.storeId === storeId);
       setChartData(convertDataForChart(filteredPlanning));
