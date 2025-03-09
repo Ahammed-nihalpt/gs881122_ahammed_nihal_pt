@@ -80,9 +80,19 @@ const SKUsPage = () => {
           value={editingSKU ? editingSKU : newSKU}
           onChange={(value) => {
             if (editingSKU) {
-              setEditingSKU({ ...editingSKU, ...value });
+              setEditingSKU({
+                ...editingSKU,
+                ...value,
+                price: value.price ?? 0,
+                cost: value.cost ?? 0,
+              });
             } else {
-              setNewSKU(value);
+              setNewSKU({
+                ...newSKU,
+                ...value,
+                price: value.price ?? 0,
+                cost: value.cost ?? 0,
+              });
             }
           }}
           onClose={() => setIsModalOpen(false)}

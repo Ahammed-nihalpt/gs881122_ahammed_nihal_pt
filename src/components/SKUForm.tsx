@@ -1,28 +1,57 @@
+import React, { useState } from 'react';
+
 interface SKUFormProps {
   onSubmit: () => void;
-  value: { id?: number; name: string; price: number; cost: number };
-  onChange: (value: { name: string; price: number; cost: number }) => void;
+  value: { id?: number; name: string; price?: number; cost?: number };
+  onChange: (value: { name: string; price?: number; cost?: number }) => void;
   onClose: () => void;
 }
 
 const SKUForm: React.FC<SKUFormProps> = ({ onSubmit, value, onChange, onClose }) => {
+  const [errors, setErrors] = useState<{ name?: string; price?: string; cost?: string }>({});
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value: inputValue } = e.target;
-    onChange({ ...value, [name]: inputValue });
+
+    // Keep empty string if user deletes the value, otherwise parse number
+    const newValue = inputValue === '' ? '' : Number(inputValue);
+
+    onChange({ ...value, [name]: newValue });
+
+    if (name === 'name' && inputValue.trim() === '') {
+      setErrors((prev) => ({ ...prev, name: 'SKU name is required' }));
+    } else if (
+      (name === 'price' || name === 'cost') &&
+      (newValue === '' || isNaN(Number(inputValue)) || Number(inputValue) <= 0)
+    ) {
+      setErrors((prev) => ({ ...prev, [name]: 'Must be a positive number' }));
+    } else {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newErrors: { name?: string; price?: string; cost?: string } = {};
+
+    if (!value.name.trim()) newErrors.name = 'SKU name is required';
+    if (value.price !== undefined && value.price < 0) newErrors.price = 'Must be a positive number';
+    if (value.cost !== undefined && value.cost < 0) newErrors.cost = 'Must be a positive number';
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    onSubmit();
+    onClose();
   };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        onSubmit();
-        onClose();
-      }}
-      className="space-y-4"
-    >
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-          SKU Name
+          SKU Name *
         </label>
         <input
           type="text"
@@ -31,41 +60,44 @@ const SKUForm: React.FC<SKUFormProps> = ({ onSubmit, value, onChange, onClose })
           value={value.name}
           onChange={handleInputChange}
           placeholder="Enter SKU name"
-          className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+          className={`mt-1 block w-full p-2 border rounded-md shadow-sm ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
           required
         />
+        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
       </div>
 
       <div>
-        <label htmlFor="city" className="block text-sm font-medium text-gray-700">
-          Price
+        <label htmlFor="price" className="block text-sm font-medium text-gray-700">
+          Price *
         </label>
         <input
           type="number"
           name="price"
           id="price"
-          value={value.price}
+          value={value.price ?? ''}
           onChange={handleInputChange}
           placeholder="Enter Price"
-          className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+          className={`mt-1 block w-full p-2 border rounded-md shadow-sm ${errors.price ? 'border-red-500' : 'border-gray-300'}`}
           required
         />
+        {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price}</p>}
       </div>
 
       <div>
-        <label htmlFor="state" className="block text-sm font-medium text-gray-700">
-          Cost
+        <label htmlFor="cost" className="block text-sm font-medium text-gray-700">
+          Cost *
         </label>
         <input
           type="number"
           name="cost"
           id="cost"
-          value={value.cost}
+          value={value.cost ?? ''}
           onChange={handleInputChange}
           placeholder="Enter cost"
-          className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+          className={`mt-1 block w-full p-2 border rounded-md shadow-sm ${errors.cost ? 'border-red-500' : 'border-gray-300'}`}
           required
         />
+        {errors.cost && <p className="text-red-500 text-sm mt-1">{errors.cost}</p>}
       </div>
 
       <div className="flex justify-end space-x-4">
@@ -78,9 +110,12 @@ const SKUForm: React.FC<SKUFormProps> = ({ onSubmit, value, onChange, onClose })
         </button>
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-300"
+          disabled={
+            !value.name.trim() || !value.price || value.price <= 0 || !value.cost || value.cost <= 0
+          }
         >
-          {value.id ? 'Update Store' : 'Add Store'}
+          {value.id ? 'Update SKU' : 'Add SKU'}
         </button>
       </div>
     </form>

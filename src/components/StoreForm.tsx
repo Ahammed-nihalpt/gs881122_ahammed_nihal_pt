@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface StoreFormProps {
   onSubmit: () => void;
@@ -8,23 +8,34 @@ interface StoreFormProps {
 }
 
 const StoreForm: React.FC<StoreFormProps> = ({ onSubmit, value, onChange, onClose }) => {
+  const [errors, setErrors] = useState<{ name?: string }>({});
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value: inputValue } = e.target;
     onChange({ ...value, [name]: inputValue });
+
+    if (name === 'name' && inputValue.trim() === '') {
+      setErrors((prev) => ({ ...prev, name: 'Store name is required' }));
+    } else {
+      setErrors((prev) => ({ ...prev, name: undefined }));
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!value.name.trim()) {
+      setErrors((prev) => ({ ...prev, name: 'Store name is required' }));
+      return;
+    }
+    onSubmit();
+    onClose();
   };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        onSubmit();
-        onClose();
-      }}
-      className="space-y-4"
-    >
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-          Store Name
+          Store Name *
         </label>
         <input
           type="text"
@@ -33,9 +44,10 @@ const StoreForm: React.FC<StoreFormProps> = ({ onSubmit, value, onChange, onClos
           value={value.name}
           onChange={handleInputChange}
           placeholder="Enter store name"
-          className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+          className={`mt-1 block w-full p-2 border rounded-md shadow-sm ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
           required
         />
+        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
       </div>
 
       <div>
@@ -80,7 +92,8 @@ const StoreForm: React.FC<StoreFormProps> = ({ onSubmit, value, onChange, onClos
         </button>
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-300"
+          disabled={!value.name.trim()}
         >
           {value.id ? 'Update Store' : 'Add Store'}
         </button>
