@@ -19,7 +19,7 @@ const App = () => {
     <Router>
       <Navbar toggleSidebar={toggleSidebar} />
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
-      <div className="lg:pl-64 pt-16 transition-all">
+      <div className="lg:pl-64 lg:pt-16 pt-23 transition-all">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/stores" element={<StoresPage />} />
