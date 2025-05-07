@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom';
 import { Menu as MenuIcon } from '@mui/icons-material';
-import GSynergyLogo from '../../public/assets/gsynergy-logo.svg';
 
 const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
   return (
@@ -14,9 +12,9 @@ const Navbar = ({ toggleSidebar }: { toggleSidebar: () => void }) => {
               <MenuIcon className="h-6 w-6" />
             </button>
             {/* Logo */}
-            <Link to="/" className="flex items-center">
+            {/* <Link to="/" className="flex items-center">
               <img src={GSynergyLogo} alt="GSynergy Logo" className="h-10 w-auto" />
-            </Link>
+            </Link> */}
           </div>
 
           {/* Centered Title (Responsive) */}
